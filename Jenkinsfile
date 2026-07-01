@@ -15,7 +15,14 @@ pipeline {
 
         stage('Login to Docker Hub') {
             steps {
-                echo 'Repository cloned successfully'
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'ad8602500',
+                    passwordVariable: 'Adst@1138'
+                )]) {
+
+                    bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
+                }
             }
         }
 
